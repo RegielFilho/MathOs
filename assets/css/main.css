@@ -1,0 +1,68 @@
+:root {
+    --bg-dark: #030712;
+    --panel-bg: rgba(15, 23, 42, 0.65);
+    --panel-border: rgba(56, 189, 248, 0.15);
+    
+    --neon-blue: #00f0ff;
+    --neon-cyan: #00e5ff;
+    --neon-purple: #7000ff;
+    --neon-pink: #ff007f;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    
+    --font-orbitron: 'Orbitron', sans-serif;
+    --font-inter: 'Inter', sans-serif;
+    --font-code: 'Fira Code', monospace;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: var(--font-inter);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+#particles-bg {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: 
+        radial-gradient(circle at 10% 20%, rgba(112, 0, 255, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(0, 240, 255, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 50% 50%, rgba(3, 7, 18, 0.9) 0%, #030712 100%);
+    z-index: -2;
+}
+
+.app-glow-top {
+    position: fixed;
+    top: -150px; left: 50%;
+    transform: translateX(-50%);
+    width: 600px; height: 300px;
+    background: var(--neon-cyan);
+    filter: blur(180px);
+    opacity: 0.15;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.app-container {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 20px;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+.hidden { display: none !important; }
+.text-cyan { color: var(--neon-cyan); }
+.text-purple { color: var(--neon-purple); }
