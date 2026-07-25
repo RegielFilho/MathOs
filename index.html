@@ -105,13 +105,101 @@
             </header>
 
             <!-- Telas das Abas -->
-            <div class="tab-content" id="tab-dashboard"></div>
-            <div class="tab-content hidden" id="tab-books"></div>
-            <div class="tab-content hidden" id="tab-timer"></div>
-            <div class="tab-content hidden" id="tab-stats"></div>
-            <div class="tab-content hidden" id="tab-ai-tutor"></div>
+            
+            <!-- DASHBOARD -->
+            <div class="tab-content" id="tab-dashboard">
+                <div class="dashboard-grid">
+                    <div class="glass-card welcome-card">
+                        <h2>BEM-VINDO AO MATHOS</h2>
+                        <p>Selecione uma aba no menu lateral para iniciar sua sessão de estudos.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TRILHA E LIVROS (INCLUI O CADASTRO DE MATERIAIS) -->
+            <div class="tab-content hidden" id="tab-books">
+                <div class="section-title">
+                    <h2><i data-lucide="book-open"></i> BIBLIOTECA & TRILHA DE ESTUDOS</h2>
+                    <p>Gerencie seus livros, apostilas e módulos de estudo integrados.</p>
+                </div>
+
+                <!-- Painel Cyberpunk para Cadastrar Livro -->
+                <div class="glass-card add-book-panel" style="margin-bottom: 25px; padding: 20px;">
+                    <h3>➕ Cadastrar Novo Material</h3>
+                    <form id="material-form" class="cyber-form" style="display: flex; flex-direction: column; gap: 12px; margin-top: 15px;">
+                        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                            <input type="text" id="mat-title" placeholder="Título (ex: Biologia Celular)" required style="flex: 1; min-width: 200px; padding: 10px; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); color: #fff; border-radius: 6px;">
+                            <input type="text" id="mat-category" placeholder="Categoria (ex: Biologia, Matemática)" required style="flex: 1; min-width: 150px; padding: 10px; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); color: #fff; border-radius: 6px;">
+                        </div>
+                        <input type="text" id="mat-author" placeholder="Autor / Professor (ex: Bruce Alberts)" required style="padding: 10px; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); color: #fff; border-radius: 6px;">
+                        <textarea id="mat-modules" placeholder="Módulos / Capítulos (separe por vírgulas. Ex: Células, Mitocôndria, Genética)" rows="3" required style="padding: 10px; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); color: #fff; border-radius: 6px; font-family: inherit;"></textarea>
+                        <button type="submit" class="btn-cyber" style="padding: 12px; background: linear-gradient(135deg, #00f2fe, #4facfe); border: none; color: #000; font-weight: bold; border-radius: 6px; cursor: pointer;">
+                            ✨ Adicionar à Biblioteca
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Grid onde os Livros são carregados dinamicamente -->
+                <h3>📖 Materiais Cadastrados</h3>
+                <div id="materials-list" class="books-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px; margin-top: 15px;"></div>
+            </div>
+
+            <!-- CRONÔMETRO POMODORO -->
+            <div class="tab-content hidden" id="tab-timer">
+                <div class="glass-card timer-container" style="padding: 30px; text-align: center;">
+                    <h2><i data-lucide="timer"></i> POMODORO TIMER</h2>
+                    <div id="timer-display" style="font-size: 4rem; font-family: 'Fira Code', monospace; font-weight: bold; margin: 20px 0; color: #00f2fe;">25:00</div>
+                    <div style="display: flex; gap: 10px; justify-content: center;">
+                        <button id="btn-start-timer" style="padding: 10px 20px; background: #00f2fe; color: #000; border: none; font-weight: bold; border-radius: 6px; cursor: pointer;">Iniciar</button>
+                        <button id="btn-reset-timer" style="padding: 10px 20px; background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; cursor: pointer;">Resetar</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ESTATÍSTICAS -->
+            <div class="tab-content hidden" id="tab-stats">
+                <div class="glass-card" style="padding: 20px;">
+                    <h2><i data-lucide="line-chart"></i> ESTATÍSTICAS & HEATMAP</h2>
+                    <p>Acompanhe sua consistência de estudos diária.</p>
+                </div>
+            </div>
+
+            <!-- ASTRA IA TUTOR -->
+            <div class="tab-content hidden" id="tab-ai-tutor">
+                <div class="glass-card chat-wrapper" style="display: flex; flex-direction: column; height: 75vh; padding: 15px;">
+                    <div class="chat-header" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; margin-bottom: 10px;">
+                        <span style="font-weight: bold; color: #00f2fe;">💬 Chat com Astra AI</span>
+                        <button id="btn-api-config" onclick="const key = prompt('Cole sua API Key do Google Gemini:'); if(key){ localStorage.setItem('mathos_ai_api_key', key); alert('API Key salva!'); }" style="background: rgba(0,242,254,0.1); border: 1px solid #00f2fe; color: #00f2fe; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 0.8rem;">
+                            🔑 Configurar API Key
+                        </button>
+                    </div>
+
+                    <div id="chat-messages" style="flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; padding: 10px;">
+                        <div class="message system-msg" style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 8px;">
+                            <strong>ASTRA:</strong> Saudações, estudante! Como posso te ajudar na jornada do MathOS hoje?
+                        </div>
+                    </div>
+
+                    <form id="chat-form" style="display: flex; gap: 10px; margin-top: 10px;">
+                        <input type="text" id="user-input" placeholder="Digite sua dúvida de exatas, física, biologia..." required style="flex: 1; padding: 12px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); color: #fff; border-radius: 6px;">
+                        <button type="submit" style="padding: 12px 24px; background: linear-gradient(135deg, #00f2fe, #4facfe); border: none; color: #000; font-weight: bold; border-radius: 6px; cursor: pointer;">
+                            Enviar
+                        </button>
+                    </form>
+                </div>
+            </div>
+
         </main>
     </div>
+
+    <!-- Script de Inicialização das Ícones Lucide -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            if (window.lucide) {
+                lucide.createIcons();
+            }
+        });
+    </script>
 
     <script src="src/app.js" type="module"></script>
 </body>
